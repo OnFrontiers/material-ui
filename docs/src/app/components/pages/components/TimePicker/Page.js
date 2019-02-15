@@ -14,6 +14,8 @@ import TimePickerExampleInternational from './ExampleInternational';
 import timePickerExampleInternationalCode from '!raw!./ExampleInternational';
 import TimePickerExampleStep from './ExampleStep';
 import timePickerExampleStepCode from '!raw!./ExampleStep';
+import TimePickerExampleFormat from './ExampleFormat';
+import timePickerExampleFormatCode from '!raw!./ExampleFormat';
 import timePickerCode from '!raw!material-ui/TimePicker/TimePicker';
 
 const descriptions = {
@@ -22,6 +24,7 @@ const descriptions = {
   controlled: '`TimePicker` can be used as a controlled component.',
   localised: 'The buttons can be localised using the `cancelLabel` and `okLabel` properties.',
   step: 'The number of minutes on each step can be configured using the `minutesStep` property.',
+  format: 'The format can be configured using the `formatStep` property.',
 };
 
 const TimePickersPage = () => (
@@ -55,6 +58,13 @@ const TimePickersPage = () => (
       code={timePickerExampleStepCode}
     >
       <TimePickerExampleStep />
+    </CodeExample>
+    <CodeExample
+      title="Custom format example"
+      description={descriptions.format}
+      code={timePickerExampleFormatCode}
+    >
+      <TimePickerExampleFormat />
     </CodeExample>
     <PropTypeDescription code={timePickerCode} />
   </div>

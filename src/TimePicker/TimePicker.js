@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TimePickerDialog from './TimePickerDialog';
 import TextField from '../TextField';
-import {formatTime} from './timeUtils';
+import {formatTime as formatTimeUtil} from './timeUtils';
 
 const emptyTime = new Date();
 emptyTime.setHours(0);
@@ -40,6 +40,13 @@ class TimePicker extends Component {
      * Tells the component to display the picker in `ampm` (12hr) format or `24hr` format.
      */
     format: PropTypes.oneOf(['ampm', '24hr']),
+    /**
+     * This function is called to format the time displayed in the input field, and should return a string.
+     *
+     * @param {object} date Date object to be formatted.
+     * @returns {any} The formatted date.
+     */
+    formatTime: PropTypes.func,
     /**
      * How many minutes should be added/subtracted when moving the clock pointer.
      */
@@ -197,11 +204,14 @@ class TimePicker extends Component {
       style,
       textFieldStyle,
       minutesStep,
+      formatTime: formatTimeProp,
       ...other
     } = this.props;
 
     const {prepareStyles} = this.context.muiTheme;
     const {time} = this.state;
+
+    const formatTimeFn = formatTimeProp || formatTimeUtil;
 
     return (
       <div style={prepareStyles(Object.assign({}, style))}>
@@ -209,7 +219,7 @@ class TimePicker extends Component {
           {...other}
           style={textFieldStyle}
           ref="input"
-          value={time === emptyTime ? null : formatTime(time, format, pedantic)}
+          value={time === emptyTime ? null : formatTimeFn(time, format, pedantic)}
           onFocus={this.handleFocusInput}
           onClick={this.handleClickInput}
         />
